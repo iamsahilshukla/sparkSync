@@ -387,12 +387,14 @@ function App() {
 
             <div className="contact-method">
               <h3>WhatsApp</h3>
-              <a href="https://wa.me/919876543210">+91 98765 43210</a>
+              <a href="https://wa.me/919559133317?text=Hello%20I%20have%20a%20question" target="_blank">
+                Chat with us on WhatsApp
+              </a>
             </div>
 
             <div className="contact-method">
               <h3>Location</h3>
-              <p>Hisar, Haryana, India</p>
+              <p>Gurugram, Haryana, India</p>
             </div>
           </div>
 

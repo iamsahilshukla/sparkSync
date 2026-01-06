@@ -555,6 +555,7 @@ section {
 
 .contact-method {
   text-align: center;
+  z-index: 20;
 }
 
 .contact-method h3 {
