@@ -1,40 +1,93 @@
-import { useCallback } from 'react'
+import { useCallback, useState, useEffect } from 'react'
 import Particles from 'react-tsparticles'
 import { loadFull } from 'tsparticles'
 import './App.css'
 
 function App() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
+  // Get particle count based on viewport width
+  const getParticleCount = () => {
+    const width = window.innerWidth
+    if (width < 480) return 30
+    if (width < 768) return 50
+    if (width < 1024) return 70
+    return 100
+  }
+
+  const [particleCount, setParticleCount] = useState(getParticleCount())
+
   const particlesInit = useCallback(async engine => {
     await loadFull(engine)
+  }, [])
+
+  // Close mobile menu on scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      if (mobileMenuOpen) setMobileMenuOpen(false)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [mobileMenuOpen])
+
+  // Update particle count on resize
+  useEffect(() => {
+    const handleResize = () => {
+      setParticleCount(getParticleCount())
+    }
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
   }, [])
 
   return (
     <>
       {/* Header */}
-      <header>
+      <header role="banner">
         <div className="header-content">
           <div className="logo">spark<span>Sync</span></div>
-          <nav>
+
+          <button
+            className={`hamburger ${mobileMenuOpen ? 'active' : ''}`}
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle menu"
+            aria-expanded={mobileMenuOpen}
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+
+          <nav className={mobileMenuOpen ? 'nav-open' : ''}>
             <ul>
-              <li><a href="#home">Home</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#services">Services</a></li>
-              <li><a href="#packages">Packages</a></li>
-              <li><a href="#process">Process</a></li>
-              <li><a href="#contact">Contact</a></li>
+              <li><a href="#home" onClick={() => setMobileMenuOpen(false)}>Home</a></li>
+              <li><a href="#about" onClick={() => setMobileMenuOpen(false)}>About</a></li>
+              <li><a href="#services" onClick={() => setMobileMenuOpen(false)}>Services</a></li>
+              <li><a href="#packages" onClick={() => setMobileMenuOpen(false)}>Packages</a></li>
+              <li><a href="#process" onClick={() => setMobileMenuOpen(false)}>Process</a></li>
+              <li><a href="#contact" onClick={() => setMobileMenuOpen(false)}>Contact</a></li>
             </ul>
           </nav>
         </div>
       </header>
 
+      {/* Menu Overlay */}
+      {mobileMenuOpen && (
+        <div
+          className="menu-overlay"
+          onClick={() => setMobileMenuOpen(false)}
+          aria-hidden="true"
+        />
+      )}
+
       {/* Hero */}
+      <main role="main" id="main-content">
       <div className="hero" id="home">
         <Particles
           id="tsparticles"
           init={particlesInit}
           options={{
             particles: {
-              number: { value: 100, density: { enable: true, value_area: 800 } },
+              number: { value: particleCount, density: { enable: true, value_area: 800 } },
               color: { value: '#00D9FF' },
               shape: { type: 'circle' },
               opacity: { value: 0.3, random: true },
@@ -53,13 +106,13 @@ function App() {
             interactivity: {
               detectsOn: 'canvas',
               events: {
-                onHover: { enable: true, mode: 'grab' },
-                onClick: { enable: true, mode: 'push' },
+                onHover: { enable: window.innerWidth >= 768, mode: 'grab' },
+                onClick: { enable: window.innerWidth >= 768, mode: 'push' },
                 resize: true
               },
               modes: {
                 grab: { distance: 140, links: { opacity: 0.5 } },
-                push: { quantity: 4 }
+                push: { quantity: window.innerWidth >= 768 ? 4 : 2 }
               }
             },
             detectRetina: true
@@ -364,10 +417,11 @@ function App() {
       </section>
 
       {/* Footer */}
-      <footer>
+      <footer role="contentinfo">
         <p>&copy; 2026 sparkSync. All rights reserved.</p>
         <p style={{marginTop: '10px'}}>Serving Local, National & International Clients</p>
       </footer>
+      </main>
     </>
   )
 }
