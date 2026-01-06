@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sparkSync - Where Marketing Meets Technology</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #000;
+            color: #fff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: #00D9FF;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: #00D9FF;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #00D9FF;
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Particle Canvas */
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 40px 80px;
+            background: #000;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #00D9FF;
+            margin-bottom: 30px;
+            font-weight: 600;
+            border-bottom: 2px solid #00D9FF;
+            padding-bottom: 8px;
+        }
+
+        .hero h1 {
+            font-size: clamp(42px, 6vw, 72px);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 30px;
+            letter-spacing: -2px;
+        }
+
+        .hero h1 span {
+            color: #00D9FF;
+        }
+
+        .hero-description {
+            font-size: 20px;
+            line-height: 1.6;
+            color: #999;
+            max-width: 700px;
+            margin-bottom: 50px;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 16px 32px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: #00D9FF;
+            color: #000;
+        }
+
+        .btn-primary:hover {
+            background: #00B8D9;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary:hover {
+            border-color: #00D9FF;
+            color: #00D9FF;
+        }
+
+        /* Section Base */
+        section {
+            padding: 100px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            margin-bottom: 60px;
+        }
+
+        .section-tag {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #00D9FF;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .section-title {
+            font-size: clamp(32px, 4vw, 48px);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .section-description {
+            font-size: 18px;
+            color: #999;
+            max-width: 700px;
+        }
+
+        /* About */
+        #about {
+            background: #0a0a0a;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #00D9FF;
+        }
+
+        .about-text p {
+            color: #999;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .stat-item {
+            border-left: 2px solid #00D9FF;
+            padding-left: 20px;
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: 800;
+            color: #00D9FF;
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Services */
+        .services-container {
+            display: grid;
+            gap: 2px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .service-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+        }
+
+        .service-item {
+            background: #000;
+            padding: 50px 40px;
+            transition: background 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #00D9FF;
+            transition: width 0.5s;
+        }
+
+        .service-item:hover::before {
+            width: 100%;
+        }
+
+        .service-item:hover {
+            background: #0a0a0a;
+        }
+
+        .service-number {
+            font-size: 12px;
+            color: #00D9FF;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .service-item h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .service-item p {
+            color: #999;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .service-features {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .service-features li {
+            font-size: 13px;
+            color: #666;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .service-features li:last-child {
+            border-bottom: none;
+        }
+
+        .service-price {
+            margin-top: 25px;
+            font-size: 14px;
+            color: #00D9FF;
+            font-weight: 600;
+        }
+
+        /* Packages */
+        #packages {
+            background: #0a0a0a;
+        }
+
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .package {
+            background: #000;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 50px 40px;
+            position: relative;
+            transition: border-color 0.3s;
+        }
+
+        .package.featured {
+            border-color: #00D9FF;
+        }
+
+        .package.featured .package-badge {
+            display: block;
+        }
+
+        .package-badge {
+            display: none;
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            background: #00D9FF;
+            color: #000;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 5px 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .package:hover {
+            border-color: #00D9FF;
+        }
+
+        .package-name {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #999;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .package-price {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: #00D9FF;
+        }
+
+        .package-period {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 40px;
+        }
+
+        .package-features {
+            list-style: none;
+            margin-bottom: 40px;
+        }
+
+        .package-features li {
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 14px;
+            color: #999;
+        }
+
+        .package-features li:last-child {
+            border-bottom: none;
+        }
+
+        /* Process */
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .process-step {
+            position: relative;
+        }
+
+        .process-step::after {
+            content: '→';
+            position: absolute;
+            right: -30px;
+            top: 20px;
+            font-size: 24px;
+            color: rgba(255, 255, 255, 0.1);
+        }
+
+        .process-step:last-child::after {
+            display: none;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: #00D9FF;
+            color: #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 20px;
+            margin-bottom: 25px;
+        }
+
+        .process-step h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .process-step p {
+            font-size: 14px;
+            color: #999;
+            line-height: 1.6;
+        }
+
+        /* Contact */
+        #contact {
+            background: #0a0a0a;
+            text-align: center;
+        }
+
+        .contact-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-methods {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 60px;
+            margin-bottom: 60px;
+        }
+
+        .contact-method {
+            text-align: center;
+        }
+
+        .contact-method h3 {
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: #00D9FF;
+        }
+
+        .contact-method a {
+            color: #999;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .contact-method a:hover {
+            color: #00D9FF;
+        }
+
+        .metrics-box {
+            background: rgba(0, 217, 255, 0.05);
+            border: 1px solid rgba(0, 217, 255, 0.1);
+            padding: 50px;
+            margin-top: 60px;
+        }
+
+        .metrics-box h3 {
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            text-align: left;
+        }
+
+        .metric h4 {
+            color: #00D9FF;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .metric p {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background: #000;
+            padding: 40px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        footer p {
+            color: #666;
+            font-size: 13px;
+        }
+
+        /* Mobile */
+        @media (max-width: 968px) {
+            .header-content {
+                padding: 20px;
+            }
+
+            nav ul {
+                gap: 20px;
+            }
+
+            .hero {
+                padding: 100px 20px 60px;
+            }
+
+            section {
+                padding: 60px 20px;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .service-row {
+                grid-template-columns: 1fr;
+            }
+
+            .process-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .process-step::after {
+                content: '↓';
+                right: auto;
+                top: auto;
+                bottom: -30px;
+                left: 25px;
+            }
+
+            .contact-methods,
+            .metrics-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .packages-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo">spark<span>Sync</span></div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#packages">Packages</a></li>
+                    <li><a href="#process">Process</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <div class="hero" id="home">
+        <div id="particles-js"></div>
+        <div class="hero-content">
+            <div class="hero-tag">Digital Marketing & Technology</div>
+            <h1>Where Marketing<br>Meets <span>Technology</span></h1>
+            <p class="hero-description">End-to-end digital solutions for Shopify stores and growing businesses. We combine cutting-edge tech with proven marketing strategies to scale your online presence.</p>
+            <div class="cta-group">
+                <a href="#contact" class="btn btn-primary">Schedule a Call</a>
+                <a href="#services" class="btn btn-secondary">Explore Services</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- About -->
+    <section id="about">
+        <div class="section-header">
+            <div class="section-tag">Who We Are</div>
+            <h2 class="section-title">Built for Shopify Stores & Business Owners</h2>
+        </div>
+
+        <div class="about-grid">
+            <div class="about-text">
+                <h3>For Shopify Store Owners</h3>
+                <p>Already running a store or planning to launch one? We handle everything from store optimization and product listings to driving traffic and increasing conversions. Low traffic, high cart abandonment, and inventory chaos? We fix that.</p>
+
+                <h3>For New Business Setups</h3>
+                <p>Starting from zero? We build your complete digital presence from the ground up—website, marketing strategy, AI automation, and ongoing support. No technical knowledge needed. Just bring your vision, we'll handle the execution.</p>
+            </div>
+
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number">100+</div>
+                    <div class="stat-label">Projects Delivered</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Happy Clients</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">3-6x</div>
+                    <div class="stat-label">Average ROI</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Support</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services">
+        <div class="section-header">
+            <div class="section-tag">What We Do</div>
+            <h2 class="section-title">Complete Digital Solutions</h2>
+            <p class="section-description">From website development to AI automation, we provide everything you need to grow your online business.</p>
+        </div>
+
+        <div class="services-container">
+            <div class="service-row">
+                <div class="service-item">
+                    <div class="service-number">01</div>
+                    <h3>Shopify Development</h3>
+                    <p>Custom store setup, theme customization, product optimization, and payment integration.</p>
+                    <ul class="service-features">
+                        <li>Store setup & migration</li>
+                        <li>Custom theme design</li>
+                        <li>Payment gateway integration</li>
+                        <li>Inventory management</li>
+                    </ul>
+                    <div class="service-price">From ₹25,000</div>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-number">02</div>
+                    <h3>Website Development</h3>
+                    <p>Professional WordPress and Webflow sites with booking systems and lead capture.</p>
+                    <ul class="service-features">
+                        <li>5-15 page websites</li>
+                        <li>Mobile responsive</li>
+                        <li>SEO optimized</li>
+                        <li>Booking & forms</li>
+                    </ul>
+                    <div class="service-price">From ₹15,000</div>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-number">03</div>
+                    <h3>SEO Services</h3>
+                    <p>Keyword research, on-page optimization, technical SEO, and backlink strategy.</p>
+                    <ul class="service-features">
+                        <li>Keyword research</li>
+                        <li>Technical SEO audit</li>
+                        <li>On-page optimization</li>
+                        <li>Monthly reporting</li>
+                    </ul>
+                    <div class="service-price">From ₹8,000/mo</div>
+                </div>
+            </div>
+
+            <div class="service-row">
+                <div class="service-item">
+                    <div class="service-number">04</div>
+                    <h3>Paid Advertising</h3>
+                    <p>Google Ads, Meta Ads, campaign management, and conversion tracking.</p>
+                    <ul class="service-features">
+                        <li>Google Search & Shopping</li>
+                        <li>Facebook & Instagram ads</li>
+                        <li>A/B testing</li>
+                        <li>Conversion tracking</li>
+                    </ul>
+                    <div class="service-price">15-20% of ad spend</div>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-number">05</div>
+                    <h3>AI Automation</h3>
+                    <p>WhatsApp bots, website chatbots, Instagram DM automation, and CRM integration.</p>
+                    <ul class="service-features">
+                        <li>WhatsApp Business API</li>
+                        <li>24/7 website chatbots</li>
+                        <li>Instagram automation</li>
+                        <li>Lead qualification</li>
+                    </ul>
+                    <div class="service-price">From ₹5,000</div>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-number">06</div>
+                    <h3>Tech Support</h3>
+                    <p>Monthly maintenance, security monitoring, performance optimization, and updates.</p>
+                    <ul class="service-features">
+                        <li>Website maintenance</li>
+                        <li>Security monitoring</li>
+                        <li>Speed optimization</li>
+                        <li>Plugin updates</li>
+                    </ul>
+                    <div class="service-price">From ₹5,000/mo</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Packages -->
+    <section id="packages">
+        <div class="section-header">
+            <div class="section-tag">Pricing</div>
+            <h2 class="section-title">Choose Your Growth Plan</h2>
+            <p class="section-description">Transparent pricing for businesses at every stage.</p>
+        </div>
+
+        <div class="packages-grid">
+            <div class="package">
+                <div class="package-name">Shopify Starter</div>
+                <div class="package-price">₹40K</div>
+                <div class="package-period">One-time + ₹8K/month retainer</div>
+                <ul class="package-features">
+                    <li>Shopify store setup (20 products)</li>
+                    <li>Payment & shipping integration</li>
+                    <li>Basic SEO optimization</li>
+                    <li>WhatsApp bot setup</li>
+                    <li>Google Ads campaign setup</li>
+                    <li>Email & social media support</li>
+                </ul>
+                <a href="#contact" class="btn btn-secondary" style="width: 100%; text-align: center;">Get Started</a>
+            </div>
+
+            <div class="package featured">
+                <div class="package-badge">Popular</div>
+                <div class="package-name">Shopify Growth</div>
+                <div class="package-price">₹98K</div>
+                <div class="package-period">One-time + ₹15K/month retainer</div>
+                <ul class="package-features">
+                    <li>Custom theme (100+ products)</li>
+                    <li>CRM & email integration</li>
+                    <li>Advanced SEO + speed optimization</li>
+                    <li>Website + WhatsApp AI chatbots</li>
+                    <li>Google & Meta Ads setup</li>
+                    <li>Full marketing management</li>
+                    <li>Priority support</li>
+                </ul>
+                <a href="#contact" class="btn btn-primary" style="width: 100%; text-align: center;">Get Started</a>
+            </div>
+
+            <div class="package">
+                <div class="package-name">Business Setup</div>
+                <div class="package-price">₹49K</div>
+                <div class="package-period">One-time + ₹10K/month retainer</div>
+                <ul class="package-features">
+                    <li>8-10 page professional website</li>
+                    <li>Basic branding (logo + guidelines)</li>
+                    <li>Google Business Profile setup</li>
+                    <li>WhatsApp bot (lead capture)</li>
+                    <li>Local Google Ads setup</li>
+                    <li>Social media management</li>
+                </ul>
+                <a href="#contact" class="btn btn-secondary" style="width: 100%; text-align: center;">Get Started</a>
+            </div>
+
+            <div class="package">
+                <div class="package-name">Premium Full-Stack</div>
+                <div class="package-price">₹160K</div>
+                <div class="package-period">One-time + ₹30K/month retainer</div>
+                <ul class="package-features">
+                    <li>Custom website/Shopify build</li>
+                    <li>Full CRM + 30 automation workflows</li>
+                    <li>AI chatbots (3 channels)</li>
+                    <li>Comprehensive SEO strategy</li>
+                    <li>90-day content calendar</li>
+                    <li>Google & Meta Ads optimization</li>
+                    <li>Dedicated account manager</li>
+                </ul>
+                <a href="#contact" class="btn btn-secondary" style="width: 100%; text-align: center;">Get Started</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process -->
+    <section id="process">
+        <div class="section-header">
+            <div class="section-tag">How It Works</div>
+            <h2 class="section-title">90-Day Launch Roadmap</h2>
+            <p class="section-description">A proven process to take you from setup to scaling.</p>
+        </div>
+
+        <div class="process-grid">
+            <div class="process-step">
+                <div class="step-number">1</div>
+                <h3>Discovery</h3>
+                <p>30-minute consultation to understand your business, goals, and budget. We create a customized proposal.</p>
+            </div>
+
+            <div class="process-step">
+                <div class="step-number">2</div>
+                <h3>Foundation</h3>
+                <p>Build your website or Shopify store, set up payment gateways, implement SEO, and configure analytics.</p>
+            </div>
+
+            <div class="process-step">
+                <div class="step-number">3</div>
+                <h3>Launch</h3>
+                <p>Launch ads, activate chatbots, start email sequences, and create content calendars. Weekly reporting begins.</p>
+            </div>
+
+            <div class="process-step">
+                <div class="step-number">4</div>
+                <h3>Scale</h3>
+                <p>Continuous optimization, A/B testing, conversion improvements, and monthly strategy reviews.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+        <div class="contact-content">
+            <div class="section-header">
+                <div class="section-tag">Get In Touch</div>
+                <h2 class="section-title">Ready to Grow?</h2>
+                <p class="section-description">Schedule a free 30-minute discovery call to discuss your project.</p>
+            </div>
+
+            <a href="#contact" class="btn btn-primary">Schedule Discovery Call</a>
+
+            <div class="contact-methods">
+                <div class="contact-method">
+                    <h3>Email</h3>
+                    <a href="mailto:hello@sparksync.com">hello@sparksync.com</a>
+                </div>
+
+                <div class="contact-method">
+                    <h3>WhatsApp</h3>
+                    <a href="https://wa.me/919876543210">+91 98765 43210</a>
+                </div>
+
+                <div class="contact-method">
+                    <h3>Location</h3>
+                    <p style="color: #999; font-size: 14px;">Hisar, Haryana, India</p>
+                </div>
+            </div>
+
+            <div class="metrics-box">
+                <h3>Success Metrics We Track</h3>
+                <div class="metrics-grid">
+                    <div class="metric">
+                        <h4>E-Commerce</h4>
+                        <p>Conversion rate, average order value, ROAS, customer acquisition cost, lifetime value</p>
+                    </div>
+                    <div class="metric">
+                        <h4>Service Business</h4>
+                        <p>Lead generation, cost per lead, conversion rates, search rankings, phone inquiries</p>
+                    </div>
+                    <div class="metric">
+                        <h4>Reporting</h4>
+                        <p>Monthly performance reports, ROI summaries, optimization recommendations</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 sparkSync. All rights reserved.</p>
+        <p style="margin-top: 10px;">Serving Local, National & International Clients</p>
+    </footer>
+
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 100, density: { enable: true, value_area: 800 } },
+                color: { value: '#00D9FF' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.3, random: true },
+                size: { value: 3, random: true },
+                line_linked: { enable: false },
+                move: {
+                    enable: true,
+                    speed: 1,
+                    direction: 'none',
+                    random: true,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false,
+                    attract: { enable: true, rotateX: 300, rotateY: 1200 }
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: true, mode: 'grab' },
+                    onclick: { enable: true, mode: 'push' },
+                    resize: true
+                },
+                modes: {
+                    grab: { distance: 140, line_linked: { opacity: 0.5 } },
+                    push: { particles_nb: 4 }
+                }
+            },
+            retina_detect: true
+        });
+    </script>
+</body>
+</html>
