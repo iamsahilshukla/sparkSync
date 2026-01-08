@@ -1219,6 +1219,8 @@ section {
   display: flex;
   justify-content: center;
   margin: 40px 0;
+  position: relative;
+  z-index: 10;
 }
 
 .contact-methods {
