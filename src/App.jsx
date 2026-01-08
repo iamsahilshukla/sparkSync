@@ -700,7 +700,7 @@ function App() {
 
             <div className="contact-method">
               <h3>Location</h3>
-              <p>Narnaud, Haryana, IN</p>
+              <p>Noida, Uttar Pradesh, IN</p>
             </div>
           </div>
 
