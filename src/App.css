@@ -1310,13 +1310,21 @@ footer {
   text-align: center;
   border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
+.foot-link{
+  z-index: 100 !important;
+}
 
 footer p {
   color: #666;
   font-size: 13px;
 }
-
+.footer-bar {
+  position: relative;
+  z-index: 9999;
+  pointer-events: auto;
+}
 .footer-tagline {
+  
   margin-top: 10px;
 }
 
@@ -2026,4 +2034,39 @@ footer p {
     width: auto;
     min-height: auto;
   }
+}
+
+
+/* Prevent particles from blocking clicks */
+#tsparticles {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Privacy page layout */
+.legal-with-particles {
+  position: relative;
+  min-height: 100vh;
+}
+
+.legal-content-wrapper {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 140px 20px 80px;
+}
+
+.legal-content h3 {
+  font-size: 20px;
+  margin-top: 32px;
+}
+
+.legal-content p,
+.legal-content li {
+  font-size: 16px;
+  line-height: 1.7;
+  opacity: 0.9;
 }

@@ -2,6 +2,7 @@ import { useCallback, useState, useEffect } from 'react'
 import Particles from 'react-tsparticles'
 import { loadFull } from 'tsparticles'
 import './App.css'
+import { Link } from 'react-router-dom'
 
 function App() {
   // ========================
@@ -723,12 +724,26 @@ function App() {
           </div>
         </div>
       </section>
+           
+      
 
-      {/* Footer */}
-      <footer role="contentinfo">
-        <p>&copy; 2026 sparkSync. All rights reserved.</p>
-        <p className="footer-tagline">Serving Local, National & International Clients</p>
-      </footer>
+     
+          {/* Footer */}
+<footer role="contentinfo" className="footer-bar">
+  <div className="footer-links">
+    <Link className='foot-link' to="/privacy-policy">Privacy Policy</Link>
+    
+  </div>
+
+  <div className="footer-meta">
+    <p>© 2026 sparkSync. All rights reserved.</p>
+    <p className="footer-tagline">
+      Serving Local, National & International Clients
+    </p>
+  </div>
+</footer>
+
+
       </main>
     </>
   )
