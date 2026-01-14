@@ -66,7 +66,7 @@ function App() {
               <li><a href="#home" onClick={() => setMobileMenuOpen(false)}>Home</a></li>
               <li><a href="#about" onClick={() => setMobileMenuOpen(false)}>About</a></li>
               <li><a href="#services" onClick={() => setMobileMenuOpen(false)}>Services</a></li>
-              <li><a href="#packages" onClick={() => setMobileMenuOpen(false)}>Packages</a></li>
+              {/* <li><a href="#packages" onClick={() => setMobileMenuOpen(false)}>Packages</a></li> */}
               <li><a href="#process" onClick={() => setMobileMenuOpen(false)}>Process</a></li>
               <li><a href="#contact" onClick={() => setMobileMenuOpen(false)}>Contact</a></li>
             </ul>

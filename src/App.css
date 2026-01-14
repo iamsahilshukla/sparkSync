@@ -118,14 +118,14 @@ nav a:hover::after {
 }
 
 /* Particle Canvas */
-#tsparticles {
+/* #tsparticles {
   position: absolute;
   width: 100%;
   height: 100%;
   top: 0;
   left: 0;
   z-index: 0;
-}
+} */
 
 /* Hero */
 .hero {
@@ -182,6 +182,173 @@ nav a:hover::after {
   gap: 20px;
   flex-wrap: wrap;
 }
+footer {
+  position: relative;
+  z-index: 5;
+  background: #000;
+  padding: 40px;
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+footer a {
+  color: #999;
+  text-decoration: none;
+}
+
+footer a:hover {
+  color: #00D9FF;
+}
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 50;
+}
+
+
+.legal-with-particles {
+  position: relative;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.legal-content-wrapper {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 140px 20px 100px;
+}
+
+/* Card grid */
+.legal-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+/* Individual policy card */
+.policy-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 26px 28px;
+  backdrop-filter: blur(10px);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.policy-card-1{
+   background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 26px 28px;
+  backdrop-filter: blur(10px);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  margin-bottom: 10px;
+}
+.policy-card-2{
+   background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 26px 28px;
+  backdrop-filter: blur(10px);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  margin-top: 10px;
+}
+
+.policy-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(0, 217, 255, 0.08);
+}
+
+.policy-card h3 {
+  color: #00d9ff;
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+
+.policy-card p,
+.policy-card li {
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: #bbb;
+}
+
+.policy-card ul {
+  padding-left: 18px;
+}
+
+.policy-card a {
+  color: #00d9ff;
+  text-decoration: none;
+}
+
+.policy-card a:hover {
+  text-decoration: underline;
+}
+
+/* Tablet & up */
+@media (min-width: 768px) {
+  .legal-cards {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ================================
+   FOOTER (CLICK SAFE)
+================================ */
+
+footer {
+  position: relative;
+  z-index: 10;
+  background: #000;
+  padding: 40px 20px;
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+footer p {
+  color: #666;
+  font-size: 13px;
+}
+
+footer a {
+  color: #999;
+  text-decoration: none;
+  pointer-events: auto;
+}
+
+footer a:hover {
+  color: #00d9ff;
+  text-decoration: underline;
+}
+
+.footer-tagline {
+  margin-top: 10px;
+  opacity: 0.8;
+}
+
+/* ================================
+   HEADER SAFETY
+================================ */
+
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 50;
+}
+
+/* ================================
+   MAIN CONTENT SAFETY
+================================ */
+
+main {
+  position: relative;
+  z-index: 1;
+}
+
 
 .btn {
   display: inline-flex;
@@ -2069,4 +2236,32 @@ footer p {
   font-size: 16px;
   line-height: 1.7;
   opacity: 0.9;
+}
+
+#tsparticles {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+
+.legal-content-wrapper {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 140px 20px;
+}
+
+.blog-card {
+  margin-bottom: 40px;
+}
+
+.blog-card h2 {
+  color: #00d9ff;
+}
+
+.blog-card a {
+  color: #00d9ff;
+  text-decoration: none;
 }
