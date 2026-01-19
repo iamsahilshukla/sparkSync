@@ -732,10 +732,10 @@ function App() {
         <footer role="contentinfo" className="footer-bar">
           <div className="footer-links">
             <Link className="foot-link" to="/privacy-policy">Privacy Policy</Link>
-            <Link className="foot-link" to="/terms-and-conditions">Terms & Conditions</Link>
+            {/* <Link className="foot-link" to="/terms-and-conditions">Terms & Conditions</Link>
             <Link className="foot-link" to="/cookie-policy">Cookie Policy</Link>
             <Link className="foot-link" to="/refund-policy">Refund & Cancellation</Link>
-            <Link className="foot-link" to="/disclaimer">Disclaimer</Link>
+            <Link className="foot-link" to="/disclaimer">Disclaimer</Link> */}
           </div>
 
           <div className="footer-meta">
