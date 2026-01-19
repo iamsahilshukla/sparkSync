@@ -230,6 +230,7 @@ header {
 
 /* Individual policy card */
 .policy-card {
+  width: 400px;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 16px;
@@ -245,7 +246,7 @@ header {
   padding: 26px 28px;
   backdrop-filter: blur(10px);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 .policy-card-2{
    background: rgba(255, 255, 255, 0.04);
@@ -2264,4 +2265,317 @@ footer p {
 .blog-card a {
   color: #00d9ff;
   text-decoration: none;
+}
+/* ============================= */
+/* SERVICES – PREMIUM CARD STYLE */
+/* ============================= */
+
+.services-with-particles {
+  position: relative;
+  padding: 120px 24px;
+  overflow: hidden;
+}
+
+.services-content {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* GRID */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 32px;
+  margin-top: 64px;
+}
+
+/* CARD */
+.service-card {
+  position: relative;
+  padding: 32px 28px;
+  border-radius: 18px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.06),
+    rgba(255, 255, 255, 0.02)
+  );
+  border: 1px solid rgba(0, 217, 255, 0.15);
+  backdrop-filter: blur(10px);
+  transition: all 0.35s ease;
+}
+
+/* Cyan accent bar */
+.service-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 4px;
+  width: 0%;
+  background: linear-gradient(90deg, #00d9ff, #4de3ff);
+  border-radius: 18px 18px 0 0;
+  transition: width 0.35s ease;
+}
+
+/* Hover */
+.service-card:hover {
+  transform: translateY(-10px);
+  border-color: rgba(0, 217, 255, 0.45);
+  box-shadow: 0 25px 60px rgba(0, 217, 255, 0.18);
+}
+
+.service-card:hover::before {
+  width: 100%;
+}
+
+/* TITLE */
+.service-card h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #00d9ff;
+  margin-bottom: 12px;
+}
+
+/* DESCRIPTION */
+.service-card p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 16px;
+}
+
+/* BULLETS */
+.service-card ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.service-card ul li {
+  position: relative;
+  padding-left: 18px;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.service-card ul li::before {
+  content: "▸";
+  position: absolute;
+  left: 0;
+  color: #00d9ff;
+}
+
+/* CTA */
+.services-cta {
+  text-align: center;
+  margin-top: 80px;
+}
+
+/* Mobile polish */
+@media (max-width: 768px) {
+  .services-grid {
+    gap: 24px;
+  }
+
+  .service-card {
+    padding: 26px 22px;
+  }
+}
+
+
+/* ============================= */
+/* WHY CHOOSE US */
+/* ============================= */
+
+#why-us {
+  padding: 120px 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.comparison-table {
+  margin-top: 60px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 217, 255, 0.2);
+}
+
+.comparison-row {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  padding: 18px 22px;
+  background: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.95rem;
+}
+
+.comparison-row.header {
+  background: rgba(0, 217, 255, 0.08);
+  font-weight: 600;
+  color: #00d9ff;
+}
+
+.comparison-row:last-child {
+  border-bottom: none;
+}
+
+.comparison-row div:nth-child(2) {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.comparison-row div:nth-child(3) {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Trust points */
+.trust-points {
+  margin-top: 40px;
+}
+
+.trust-points ul {
+  list-style: none;
+  padding: 0;
+}
+
+.trust-points li {
+  margin-bottom: 10px;
+  padding-left: 20px;
+  position: relative;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.trust-points li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #00d9ff;
+}
+
+/* CTA center */
+.center-cta {
+  margin-top: 60px;
+  text-align: center;
+}
+/* ============================= */
+/* PROCESS – CENTERED TIMELINE */
+/* ============================= */
+
+.process-steps {
+  margin: 40px auto 0;
+  padding: 0;
+  list-style: none;
+  max-width: 720px;
+  position: relative;
+}
+
+/* main vertical string (centered) */
+.process-steps::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  transform: translateX(-50%);
+  background: rgba(0, 217, 255, 0.35);
+}
+
+.process-steps li {
+  position: relative;
+  margin-bottom: 32px;
+  padding: 18px 22px;
+  width: calc(50% - 40px);
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 12px;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.65;
+}
+
+/* alternate left / right */
+.process-steps li:nth-child(odd) {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.process-steps li:nth-child(even) {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+/* connector dot (centered on string) */
+.process-steps li::before {
+  content: "";
+  position: absolute;
+  top: 24px;
+  left: 100%;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #00d9ff;
+  transform: translateX(-50%);
+}
+
+/* horizontal connector */
+.process-steps li::after {
+  content: "";
+  position: absolute;
+  top: 30px;
+  left: 100%;
+  width: 40px;
+  height: 1px;
+  background: rgba(0, 217, 255, 0.5);
+}
+
+/* flip connectors for right side */
+.process-steps li:nth-child(even)::before {
+  left: 0;
+  transform: translateX(-50%);
+}
+
+.process-steps li:nth-child(even)::after {
+  left: auto;
+  right: 100%;
+}
+
+/* timeline note */
+.process-timeline {
+  margin: 36px auto 0;
+  max-width: 720px;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.85);
+  padding-left: 16px;
+  border-left: 2px solid #00d9ff;
+}
+
+/* MOBILE – stack cleanly */
+@media (max-width: 768px) {
+  .process-steps::before {
+    left: 16px;
+    transform: none;
+  }
+
+  .process-steps li {
+    width: 100%;
+    margin-left: 0;
+    padding-left: 48px;
+  }
+
+  .process-steps li::before {
+    left: 16px;
+    transform: none;
+  }
+
+  .process-steps li::after {
+    left: 30px;
+    width: 18px;
+  }
+}
+/* Center the Process section title */
+.head{
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }

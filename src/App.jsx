@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect } from 'react'
+import { useCallback, useState, useEffect, useMemo } from 'react'
 import Particles from 'react-tsparticles'
 import { loadFull } from 'tsparticles'
 import './App.css'
@@ -9,8 +9,24 @@ function App() {
   // STATE MANAGEMENT
   // ========================
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+    
 
-  // Get particle count based on viewport width
+  const particleOptions = useMemo(
+    () => ({
+      particles: {
+        number: { value: 60, density: { enable: true, value_area: 900 } },
+        color: { value: "#00D9FF" },
+        shape: { type: "circle" },
+        opacity: { value: 0.25, random: true },
+        size: { value: 3, random: true },
+        move: { enable: true, speed: 1, random: true },
+        links: { enable: false }
+      },
+      detectRetina: true
+    }),
+    []
+  );
+
   const getParticleCount = () => {
     const width = window.innerWidth
     if (width < 480) return 30
@@ -25,7 +41,6 @@ function App() {
     await loadFull(engine)
   }, [])
 
-  // Close mobile menu on scroll
   useEffect(() => {
     const handleScroll = () => {
       if (mobileMenuOpen) setMobileMenuOpen(false)
@@ -34,7 +49,6 @@ function App() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [mobileMenuOpen])
 
-  // Update particle count on resize
   useEffect(() => {
     const handleResize = () => {
       setParticleCount(getParticleCount())
@@ -45,10 +59,12 @@ function App() {
 
   return (
     <>
-      {/* Header */}
+      {/* ================= HEADER ================= */}
       <header role="banner">
         <div className="header-content">
-          <div className="logo">spark<span>Sync</span></div>
+          <div className="logo">
+            Spark<span>Sync</span>
+          </div>
 
           <button
             className={`hamburger ${mobileMenuOpen ? 'active' : ''}`}
@@ -56,9 +72,9 @@ function App() {
             aria-label="Toggle menu"
             aria-expanded={mobileMenuOpen}
           >
-            <span></span>
-            <span></span>
-            <span></span>
+            <span />
+            <span />
+            <span />
           </button>
 
           <nav className={mobileMenuOpen ? 'nav-open' : ''}>
@@ -66,7 +82,6 @@ function App() {
               <li><a href="#home" onClick={() => setMobileMenuOpen(false)}>Home</a></li>
               <li><a href="#about" onClick={() => setMobileMenuOpen(false)}>About</a></li>
               <li><a href="#services" onClick={() => setMobileMenuOpen(false)}>Services</a></li>
-              {/* <li><a href="#packages" onClick={() => setMobileMenuOpen(false)}>Packages</a></li> */}
               <li><a href="#process" onClick={() => setMobileMenuOpen(false)}>Process</a></li>
               <li><a href="#contact" onClick={() => setMobileMenuOpen(false)}>Contact</a></li>
             </ul>
@@ -74,7 +89,6 @@ function App() {
         </div>
       </header>
 
-      {/* Menu Overlay */}
       {mobileMenuOpen && (
         <div
           className="menu-overlay"
@@ -83,55 +97,51 @@ function App() {
         />
       )}
 
-      {/* Hero */}
+      {/* ================= HERO ================= */}
       <main role="main" id="main-content">
-      <div className="hero" id="home">
-        <Particles
-          id="tsparticles"
-          init={particlesInit}
-          options={{
-            particles: {
-              number: { value: particleCount, density: { enable: true, value_area: 800 } },
-              color: { value: '#00D9FF' },
-              shape: { type: 'circle' },
-              opacity: { value: 0.3, random: true },
-              size: { value: 3, random: true },
-              links: { enable: false },
-              move: {
-                enable: true,
-                speed: 1,
-                direction: 'none',
-                random: true,
-                straight: false,
-                outModes: 'out',
-                attract: { enable: true, rotateX: 300, rotateY: 1200 }
-              }
-            },
-            interactivity: {
-              detectsOn: 'canvas',
-              events: {
-                onHover: { enable: window.innerWidth >= 768, mode: 'grab' },
-                onClick: { enable: window.innerWidth >= 768, mode: 'push' },
-                resize: true
+        <div className="hero" id="home">
+          <Particles
+            id="tsparticles"
+            init={particlesInit}
+            options={{
+              particles: {
+                number: { value: particleCount, density: { enable: true, value_area: 800 } },
+                color: { value: '#00D9FF' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.3, random: true },
+                size: { value: 3, random: true },
+                links: { enable: false },
+                move: {
+                  enable: true,
+                  speed: 1,
+                  random: true,
+                  outModes: 'out'
+                }
               },
-              modes: {
-                grab: { distance: 140, links: { opacity: 0.5 } },
-                push: { quantity: window.innerWidth >= 768 ? 4 : 2 }
-              }
-            },
-            detectRetina: true
-          }}
-        />
-        <div className="hero-content">
-          <div className="hero-tag">Tech + Marketing, Finally in Sync</div>
-          <h1>Tech + Marketing,<br />Finally in <span>Sync</span></h1>
-          <p className="hero-description">We help growth-focused businesses build smart digital systems and run performance marketing that actually converts, so you can focus on running your business.</p>
-          <div className="cta-group">
-            <a href="#contact" className="btn btn-primary">Book a Free Strategy Call</a>
-            <a href="#services" className="btn btn-secondary">Explore Services</a>
+              detectRetina: true
+            }}
+          />
+
+          <div className="hero-content">
+            <div className="hero-tag">Tech + Marketing, Finally in Sync</div>
+            <h1>
+              Tech + Marketing,<br />
+              Finally in <span>Sync</span>
+            </h1>
+            <p className="hero-description">
+              We help growth-focused businesses build smart digital systems and run
+              performance marketing that actually converts.
+            </p>
+            <div className="cta-group">
+              <a href="#contact" className="btn btn-primary">
+                Book a Free Strategy Call
+              </a>
+              <a href="#services" className="btn btn-secondary">
+                Explore Services
+              </a>
+            </div>
           </div>
         </div>
-      </div>
 
       {/* About */}
       <section id="about">
@@ -172,222 +182,218 @@ function App() {
       </section>
 
       {/* Services */}
-      <section id="services">
+       <section id="services" className="services-with-particles">
+      {/* Particles Background */}
+      <Particles
+        id="services-particles"
+        aria-hidden="true"
+        init={particlesInit}
+        options={particleOptions}
+      />
+
+      {/* Content */}
+      <div className="services-content">
         <div className="section-header">
-          <div className="section-tag">Spark Sync Services</div>
-          <h2 className="section-title">Complete Tech and Marketing Solutions</h2>
-          <p className="section-description">Complete tech and marketing solutions to grow your business faster.</p>
+          <div className="section-tag">Services</div>
+          <h1 className="section-title">
+            Comprehensive Tech & Marketing Solutions for Your Business
+          </h1>
         </div>
 
-        <div className="services-container">
-          {/* Tech Services Grid */}
-          <div className="service-category">
-            <h3 className="category-title">Tech Services</h3>
-            <div className="service-boxes">
-              <div className="service-box">
-                <div className="service-box-header">
-                  <h4>Website and Landing Pages</h4>
-                  <p className="service-box-desc">High-converting websites and landing pages that turn visitors into leads and customers.</p>
-                </div>
-                <div className="service-box-content">
-                  <p>Pages are mobile-first, fast, and structured for performance campaigns, with clear CTAs, tracking, and forms connected to your CRM.</p>
-                  <h5>What's included:</h5>
-                  <ul>
-                    <li>Custom site design and development</li>
-                    <li>Mobile-responsive layouts</li>
-                    <li>SEO fundamentals and fast load times</li>
-                    <li>Lead capture forms and tracking pixels</li>
-                    <li>Integration with your CRM and email tools</li>
-                  </ul>
-                </div>
-              </div>
-
-              <div className="service-box">
-                <div className="service-box-header">
-                  <h4>CRM and Sales Pipeline Setup</h4>
-                  <p className="service-box-desc">CRM systems so every lead is captured, tracked, and followed up on automatically.</p>
-                </div>
-                <div className="service-box-content">
-                  <p>Sales pipelines, lead stages, reminders, and integrations are configured to match how your business actually sells. No lead falls through the cracks.</p>
-                  <h5>What's included:</h5>
-                  <ul>
-                    <li>CRM platform selection and setup (HubSpot, Pipedrive, custom)</li>
-                    <li>Sales pipeline design based on your process</li>
-                    <li>Lead scoring and automated follow-ups</li>
-                    <li>Team access and permissions management</li>
-                    <li>Integration with email, SMS, and WhatsApp</li>
-                  </ul>
-                </div>
-              </div>
-
-              <div className="service-box">
-                <div className="service-box-header">
-                  <h4>Automation and Integrations</h4>
-                  <p className="service-box-desc">Connect your tools so your business runs on autopilot where it matters most.</p>
-                </div>
-                <div className="service-box-content">
-                  <p>WhatsApp, email, forms, payment gateways, and ad platforms are integrated to reduce manual work and ensure every lead gets timely communication.</p>
-                  <h5>What's included:</h5>
-                  <ul>
-                    <li>Tool integration and API setup</li>
-                    <li>Workflow automation (leads → email → WhatsApp → CRM)</li>
-                    <li>Payment gateway integration</li>
-                    <li>Data synchronization across platforms</li>
-                    <li>Custom triggers and conditional workflows</li>
-                  </ul>
-                </div>
-              </div>
-
-              <div className="service-box">
-                <div className="service-box-header">
-                  <h4>Analytics and Tracking</h4>
-                  <p className="service-box-desc">Proper tracking so you know exactly what is working.</p>
-                </div>
-                <div className="service-box-content">
-                  <p>This includes pixel setup, event tracking, UTM structure, and simple dashboards that show traffic, leads, cost per lead, and key funnel metrics. Clarity replaces guesswork.</p>
-                  <h5>What's included:</h5>
-                  <ul>
-                    <li>Facebook and Google pixel installation</li>
-                    <li>Event and conversion tracking setup</li>
-                    <li>UTM parameter strategy</li>
-                    <li>Custom dashboards for key metrics</li>
-                    <li>Monthly analytics reports</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Marketing Services Grid */}
-          <div className="service-category">
-            <h3 className="category-title">Marketing Services</h3>
-            <div className="service-boxes">
-              <div className="service-box">
-                <div className="service-box-header">
-                  <h4>Performance Marketing (Paid Ads)</h4>
-                  <p className="service-box-desc">Paid campaigns on Meta and Google focused on ROI, not just clicks.</p>
-                </div>
-                <div className="service-box-content">
-                  <p>The team works on audiences, creatives, offers, and landing pages together so your ad spend turns into qualified leads and sales.</p>
-                  <h5>What's included:</h5>
-                  <ul>
-                    <li>Campaign strategy and audience research</li>
-                    <li>Ad copy and creative development</li>
-                    <li>Campaign setup and optimization</li>
-                    <li>A/B testing for continuous improvement</li>
-                    <li>Weekly performance monitoring and reporting</li>
-                  </ul>
-                </div>
-              </div>
-
-              <div className="service-box">
-                <div className="service-box-header">
-                  <h4>Social Media and Content</h4>
-                  <p className="service-box-desc">Content to support both brand presence and performance campaigns.</p>
-                </div>
-                <div className="service-box-content">
-                  <p>The focus is on clear messaging, strong hooks, and consistency so your brand looks sharp and stays visible where your customers spend time.</p>
-                  <h5>What's included:</h5>
-                  <ul>
-                    <li>Content calendar planning (monthly)</li>
-                    <li>Short-form video creation</li>
-                    <li>Carousel and static graphic design</li>
-                    <li>Copywriting optimized for conversion</li>
-                    <li>Posting and engagement management</li>
-                  </ul>
-                </div>
-              </div>
-
-              <div className="service-box">
-                <div className="service-box-header">
-                  <h4>Funnel and Offer Strategy</h4>
-                  <p className="service-box-desc">Design your full funnel from first impression to conversion.</p>
-                </div>
-                <div className="service-box-content">
-                  <p>Lead magnets, tripwires, core offers, and retargeting flows are mapped so every step gives the user a clear next action and moves them closer to buying.</p>
-                  <h5>What's included:</h5>
-                  <ul>
-                    <li>Funnel mapping and flow design</li>
-                    <li>Lead magnet creation</li>
-                    <li>Offer hierarchy and positioning</li>
-                    <li>Retargeting sequence strategy</li>
-                    <li>Conversion optimization recommendations</li>
-                  </ul>
-                </div>
-              </div>
-
-              <div className="service-box">
-                <div className="service-box-header">
-                  <h4>Email and WhatsApp Marketing</h4>
-                  <p className="service-box-desc">Campaigns and automations to nurture leads and re-engage customers.</p>
-                </div>
-                <div className="service-box-content">
-                  <p>Sequences for welcome, follow-up, abandoned leads, and reactivation are built to increase lifetime value without proportional increase in ad spend.</p>
-                  <h5>What's included:</h5>
-                  <ul>
-                    <li>Email and WhatsApp sequence design</li>
-                    <li>Automation workflow setup</li>
-                    <li>List segmentation strategy</li>
-                    <li>Copy and template creation</li>
-                    <li>Performance tracking and optimization</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Add-On Services */}
-          <h3 className="section-subtitle-center">Add-On and Supporting Services</h3>
-
-          <div className="service-item-detailed">
-            <h3>Funnel Audits</h3>
-            <p>A deep dive into your current website, ads, CRM, and marketing to identify quick wins, leaks, and missed opportunities.</p>
-            <p>Perfect for businesses already running ads or have an existing funnel but want expert perspective on what's working and what isn't.</p>
-          </div>
-
-          <div className="service-item-detailed">
-            <h3>Strategy Consulting</h3>
-            <p>One-on-one sessions with the Spark Sync founder and strategist to help you clarify your business model, margins, sales process, and growth priorities before scaling ad spend or hiring.</p>
-          </div>
-
-          <div className="service-item-detailed">
-            <h3>Monthly Retainers</h3>
-            <p>Ongoing tech and marketing support for businesses looking for continuous improvement without committing to full-service project work.</p>
-            <p>Includes campaign optimization, content creation, CRM management, and strategic guidance. Perfect for growing businesses that need support but want flexibility.</p>
-          </div>
-
-          <div className="service-item-detailed">
-            <h3>Content Creation Packages</h3>
-            <p>Video production, graphic design, copywriting, and content strategy for brands that want professional content but don't have an in-house team.</p>
-          </div>
-
-          {/* Service Delivery */}
-          <h3 className="section-subtitle-center">How Services Are Delivered</h3>
-
-          <div className="service-delivery">
-            <p><strong>Project-Based:</strong> For one-time builds like websites, CRM setup, or campaign launches with defined scope and timeline.</p>
-            <p><strong>Retainer-Based:</strong> For ongoing support combining strategy, execution, optimization, and reporting on a monthly basis.</p>
-            <p><strong>Hybrid:</strong> Many clients start with a project (website + CRM setup) and move into a retainer for continuous optimization and growth.</p>
-          </div>
-
-          {/* Pricing Model */}
-          <h3 className="section-subtitle-center">Pricing Model</h3>
-
-          <div className="pricing-info">
-            <p>Spark Sync pricing is transparent and scalable:</p>
+        <div className="services-grid">
+          {/* Service Item */}
+          <div className="service-card">
+            <h3>Website Design & Development</h3>
+            <p>
+              Custom websites that load fast, rank high, and convert visitors.
+              From landing pages to full sites, we use modern tech for startups
+              and SMEs.
+            </p>
             <ul>
-              <li><strong>Tech Services:</strong> Based on project scope (website, CRM setup, integrations)</li>
-              <li><strong>Marketing Services:</strong> Performance-based model or monthly retainer depending on ad spend and goals</li>
-              <li><strong>Audits & Consulting:</strong> Hourly or fixed-fee strategy sessions</li>
+              <li>Responsive designs for mobile-first India</li>
+              <li>SEO-optimized from day one</li>
             </ul>
-            <p>Every engagement starts with a discovery call to understand your situation, goals, and budget—then a clear proposal with no surprises.</p>
+          </div>
+
+          <div className="service-card">
+            <h3>E-commerce & Shopify Development</h3>
+            <p>
+              Launch your online store with Shopify expertise. We handle setup,
+              payments, and scaling for e-commerce businesses.
+            </p>
+            <ul>
+              <li>Secure, fast-loading stores</li>
+              <li>Integration with Indian payment gateways</li>
+            </ul>
+          </div>
+
+          <div className="service-card">
+            <h3>Digital Marketing (Meta Ads, Google Ads, SEO)</h3>
+            <p>
+              Drive traffic and sales with targeted campaigns. As a top digital
+              marketing agency, we optimize Meta Ads, Google Ads, and SEO for
+              local brands.
+            </p>
+            <ul>
+              <li>2x–5x ROAS on ad spends</li>
+              <li>Keyword-rich strategies for “IT company in India” searches</li>
+            </ul>
+          </div>
+
+          <div className="service-card">
+            <h3>Branding & UI/UX Design</h3>
+            <p>
+              Stand out with memorable logos, branding kits, and user-friendly
+              interfaces. Perfect for service-based companies.
+            </p>
+            <ul>
+              <li>Modern, trustworthy designs</li>
+              <li>User testing for higher engagement</li>
+            </ul>
+          </div>
+
+          <div className="service-card">
+            <h3>Performance Marketing</h3>
+            <p>
+              Data-driven campaigns that deliver measurable growth. Track every
+              rupee spent.
+            </p>
+            <ul>
+              <li>A/B testing and analytics dashboards</li>
+            </ul>
+          </div>
+
+          <div className="service-card">
+            <h3>CRM, Automation & Tech Solutions</h3>
+            <p>
+              Streamline operations with custom CRM, email automation, and API
+              integrations.
+            </p>
+            <ul>
+              <li>Zapier and HubSpot setups</li>
+            </ul>
+          </div>
+
+          <div className="service-card">
+            <h3>Maintenance & Support</h3>
+            <p>
+              Ongoing updates, security, and 24/7 support to keep your business
+              running smoothly.
+            </p>
           </div>
         </div>
-      </section>
+
+        {/* CTA */}
+        <div className="services-cta">
+          <a href="#contact" className="btn btn-primary">
+            Choose Your Service – Get Started Now
+          </a>
+        </div>
+      </div>
+    </section>
+
+            {/* Why Choose Us */}
+<section id="why-us">
+  <div className="section-header">
+    <div className="section-tag">Why Choose Us</div>
+    <h2 className="section-title">
+      Why SparkSync Technologies is Your Best Tech Partner
+    </h2>
+    <p className="section-description">
+      As a leading website development company and digital marketing agency in
+      India, SparkSync delivers trust, clarity, and measurable results.
+    </p>
+  </div>
+
+  {/* Comparison Table */}
+  <div className="comparison-table">
+    <div className="comparison-row header">
+      <div>Feature</div>
+      <div>SparkSync Advantage</div>
+      <div>Others</div>
+    </div>
+
+    <div className="comparison-row">
+      <div>Full-Stack Solutions</div>
+      <div>IT + Marketing in one package</div>
+      <div>Separate agencies</div>
+    </div>
+
+    <div className="comparison-row">
+      <div>India-Focused</div>
+      <div>Local payments, Hindi support</div>
+      <div>Generic global templates</div>
+    </div>
+
+    <div className="comparison-row">
+      <div>Transparent Pricing</div>
+      <div>No hidden fees, fixed quotes</div>
+      <div>Hourly surprises</div>
+    </div>
+
+    <div className="comparison-row">
+      <div>Fast Turnaround</div>
+      <div>Projects in 7–30 days</div>
+      <div>2–3 month delays</div>
+    </div>
+
+    <div className="comparison-row">
+      <div>ROI Guarantee</div>
+      <div>Performance tracked or refined</div>
+      <div>Promises without proof</div>
+    </div>
+  </div>
+
+  {/* Trust Points */}
+  <div className="trust-points">
+    <ul>
+      <li>100% uptime on websites</li>
+      <li>Dedicated account manager for every client</li>
+    </ul>
+  </div>
+
+  {/* CTA */}
+  <div className="center-cta">
+    <a href="#contact" className="btn btn-primary">
+      See Why Brands Trust Us – Book a Demo
+    </a>
+  </div>
+</section>
+{/* Process Intro */}
+<div className="section-intro">
+  <div className='head'>
+    <h2 className="section-title">
+      How We Work – Simple, Proven Steps for Success
+    </h2>
+  </div>
+  <p>
+    SparkSync follows a clear 5-step process to ensure every project succeeds
+    with speed, transparency, and measurable outcomes.
+  </p>
+
+  <ol className="process-steps">
+    <li><strong>Discovery Call:</strong> Understand your goals and challenges</li>
+    <li><strong>Strategy & Design:</strong> Custom plan with wireframes and mockups</li>
+    <li><strong>Development & Testing:</strong> Build, integrate, and optimize</li>
+    <li><strong>Launch & Train:</strong> Go live with full handover</li>
+    <li><strong>Support & Scale:</strong> Monitor, maintain, and grow</li>
+  </ol>
+
+  <p className="process-timeline">
+    <strong>Timeline:</strong> Most projects complete in 2–4 weeks
+  </p>
+
+  <div className="center-cta">
+    <a href="#contact" className="btn btn-secondary">
+      Start Step 1 – Free Strategy Session
+    </a>
+  </div>
+</div>
+
 
       {/* Process */}
       <section id="process">
-        <div className="section-header">
+        <div className="phase-header">
           <div className="section-tag">How It Works</div>
           <h2 className="section-title">90-Day Launch Roadmap</h2>
           <p className="section-description">A proven process to take you from strategy to scaling.</p>
@@ -674,76 +680,73 @@ function App() {
       </section>
 
       {/* Contact */}
-      <section id="contact">
-        <div className="contact-content">
-          <div className="section-header">
-            <div className="section-tag">Ready to Sync Your Tech and Marketing?</div>
-            <h2 className="section-title">Let's Talk Growth</h2>
-            <p className="section-description">Book a free 30-minute strategy session to audit your current funnel and uncover immediate quick wins for growth.</p>
-          </div>
-
-          <div className="contact-cta-button">
-            <a href="https://wa.me/919559133317?text=Hi%2C%20I%27d%20like%20to%20book%20a%20free%20strategy%20call" target="_blank" rel="noopener noreferrer" className="btn btn-primary">Get My Free Strategy Call</a>
-          </div>
-
-          <div className="contact-methods">
-            <div className="contact-method">
-              <h3>Email</h3>
-              <a href="mailto:hello@sparksync.com">hello@sparksync.com</a>
+       <section id="contact">
+          <div className="contact-content">
+            <div className="section-header">
+              <div className="section-tag">Ready to Sync Your Tech and Marketing?</div>
+              <h2 className="section-title">Let's Talk Growth</h2>
+              <p className="section-description">
+                Book a free 30-minute strategy session to audit your funnel.
+              </p>
             </div>
 
-            <div className="contact-method">
-              <h3>WhatsApp</h3>
-              <a href="https://wa.me/919559133317?text=Hello%20I%20have%20a%20question" target="_blank">
-                Chat with us on WhatsApp
+            <div className="contact-cta-button">
+              <a
+                href="https://wa.me/919559133317"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-primary"
+              >
+                Get My Free Strategy Call
               </a>
             </div>
 
-            <div className="contact-method">
-              <h3>Location</h3>
-              <p>Noida, Uttar Pradesh, IN</p>
+            <div className="contact-methods">
+              <div className="contact-method">
+                <h3>Email</h3>
+                <a href="mailto:hello@sparksync.com">
+                  hello@sparksync.com
+                </a>
+              </div>
+
+              <div className="contact-method">
+                <h3>WhatsApp</h3>
+                <a
+                  href="https://wa.me/919559133317"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Chat with us on WhatsApp
+                </a>
+              </div>
+
+              <div className="contact-method">
+                <h3>Location</h3>
+                <p>Noida, Uttar Pradesh, India</p>
+              </div>
             </div>
           </div>
+        </section>
 
-          <div className="metrics-box">
-            <h3>Results & Proof</h3>
-            <div className="metrics-grid">
-              <div className="metric">
-                <h4>2-3x Increase in Qualified Leads</h4>
-                <p>Service businesses see dramatic lead volume improvements after we fix landing pages and implement proper tracking.</p>
-              </div>
-              <div className="metric">
-                <h4>Improved Ad Performance</h4>
-                <p>By reallocating budget from low-intent channels to high-converting creative and audience strategies, clients consistently see lower CAC and higher ROAS.</p>
-              </div>
-              <div className="metric">
-                <h4>Data-Backed Decisions</h4>
-                <p>Every campaign and tech setup is tracked, reported, and continuously optimized based on real results.</p>
-              </div>
-            </div>
+        {/* ================= FOOTER (LEGAL UPDATED) ================= */}
+        <footer role="contentinfo" className="footer-bar">
+          <div className="footer-links">
+            <Link className="foot-link" to="/privacy-policy">Privacy Policy</Link>
+            {/* <Link className="foot-link" to="/terms-and-conditions">Terms & Conditions</Link>
+            <Link className="foot-link" to="/cookie-policy">Cookie Policy</Link>
+            <Link className="foot-link" to="/refund-policy">Refund & Cancellation</Link>
+            <Link className="foot-link" to="/disclaimer">Disclaimer</Link> */}
           </div>
-        </div>
-      </section>
-           
-      
 
-     
-          {/* Footer */}
-<footer role="contentinfo" className="footer-bar">
-  <div className="footer-links">
-    <Link className='foot-link' to="/privacy-policy">Privacy Policy</Link>
-    
-  </div>
-
-  <div className="footer-meta">
-    <p>© 2026 sparkSync. All rights reserved.</p>
-    <p className="footer-tagline">
-      Serving Local, National & International Clients
-    </p>
-  </div>
-</footer>
-
-
+          <div className="footer-meta">
+            <p>
+              © 2026 <strong>SparkSync Technologies (SparkSyncs)</strong>. All rights reserved.
+            </p>
+            <p className="footer-tagline">
+              Serving Local, National & International Clients
+            </p>
+          </div>
+        </footer>
       </main>
     </>
   )
